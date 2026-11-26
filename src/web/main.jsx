@@ -7,6 +7,9 @@ import App from '../App.jsx';
 import { Btn, Input, Field } from '../ui.jsx';
 import { supa, configured, db, assets, downloads, resolveBlob, resetCache } from './supa.js';
 
+// Opened from an invite / reset e-mail? (read before Supabase cleans the URL)
+const FROM_EMAIL_LINK = /type=(invite|recovery|signup|magiclink)/.test(location.hash + location.search);
+
 function Shell({ children }) {
   return (
     <div className="min-h-screen grid place-items-center p-5">
@@ -64,7 +67,8 @@ function SetPassword({ onDone }) {
   const [pw, setPw] = useState(''), [pw2, setPw2] = useState(''), [err, setErr] = useState(''), [busy, setBusy] = useState(false);
   return (
     <Shell>
-      <h1 className="text-[24px] font-bold">Set a new password</h1>
+      <h1 className="text-[24px] font-bold">Set your password</h1>
+      <p className="text-mute mt-1 text-[14px]">Choose the password you will use to sign in to Vertex Enterprises.</p>
       <div className="space-y-3 mt-4">
         <Field label="New password"><Input type="password" autoComplete="new-password" value={pw} onChange={(e) => setPw(e.target.value)} /></Field>
         <Field label="Repeat password"><Input type="password" autoComplete="new-password" value={pw2} onChange={(e) => setPw2(e.target.value)} /></Field>
@@ -92,7 +96,7 @@ function NotMember({ email }) {
 
 function Gate() {
   const [session, setSession] = useState(undefined);
-  const [recovery, setRecovery] = useState(false);
+  const [recovery, setRecovery] = useState(FROM_EMAIL_LINK);
   const [member, setMember] = useState(undefined);
   useEffect(() => {
     supa.auth.getSession().then(({ data }) => setSession(data.session || null));
@@ -111,7 +115,7 @@ function Gate() {
   }, [session && session.user && session.user.id]);
 
   if (session === undefined) return <Shell><p className="text-mute">Loading…</p></Shell>;
-  if (recovery && session) return <SetPassword onDone={() => setRecovery(false)} />;
+  if (recovery && session) return <SetPassword onDone={() => { setRecovery(false); history.replaceState(null, '', location.pathname + '#dashboard'); }} />;
   if (!session) return <Login />;
   if (member === undefined) return <Shell><p className="text-mute">Checking access…</p></Shell>;
   if (!member) return <NotMember email={session.user.email} />;

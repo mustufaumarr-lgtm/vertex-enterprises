@@ -8,6 +8,10 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 
 const WEB = process.argv[2] === 'web';
+let cfg = {};
+try { cfg = JSON.parse(fs.readFileSync('src/web/config.json', 'utf8')); } catch {}
+const SUPA_URL = (process.env.SUPABASE_URL || cfg.SUPABASE_URL || '').trim();
+const SUPA_KEY = (process.env.SUPABASE_ANON_KEY || cfg.SUPABASE_ANON_KEY || '').trim();
 const alias = process.env.SUPABASE_FAKE ? { '@supabase/supabase-js': process.env.SUPABASE_FAKE } : undefined;
 const r = await build({
   entryPoints: [WEB ? 'src/web/main.jsx' : 'src/main-claude.jsx'],
@@ -16,8 +20,8 @@ const r = await build({
   define: {
     'process.env.NODE_ENV': '"production"',
     __WEB__: WEB ? 'true' : 'false',
-    __SUPABASE_URL__: JSON.stringify(WEB ? (process.env.SUPABASE_URL || '').trim() : ''),
-    __SUPABASE_ANON_KEY__: JSON.stringify(WEB ? (process.env.SUPABASE_ANON_KEY || '').trim() : ''),
+    __SUPABASE_URL__: JSON.stringify(WEB ? SUPA_URL : ''),
+    __SUPABASE_ANON_KEY__: JSON.stringify(WEB ? SUPA_KEY : ''),
   },
 });
 const js = r.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
@@ -34,4 +38,4 @@ const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta n
 const out = WEB ? 'public/index.html' : 'dist/index.html';
 fs.mkdirSync(WEB ? 'public' : 'dist', { recursive: true });
 fs.writeFileSync(out, html);
-console.log(out, (html.length / 1024).toFixed(0) + 'KB', WEB ? (process.env.SUPABASE_URL ? '(Supabase configured)' : '(no SUPABASE_URL — will show setup screen)') : '');
+console.log(out, (html.length / 1024).toFixed(0) + 'KB', WEB ? (SUPA_URL ? '(Supabase configured)' : '(no Supabase URL — will show setup screen)') : '');

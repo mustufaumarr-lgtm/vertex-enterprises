@@ -1,0 +1,5 @@
+{
+  "SUPABASE_URL": "",
+  "SUPABASE_ANON_KEY": "",
+  "_note": "Public client settings. The anon key is meant to be public (security comes from the row-level security rules in supabase/setup.sql). NEVER put the service_role key here. Vercel environment variables, if set, override these values."
+}
