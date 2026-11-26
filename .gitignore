@@ -1,0 +1,10 @@
+node_modules/
+dist/
+public/
+.env
+.env.*
+.vercel
+seed*.json
+ops*.json
+w*.json
+d*.json

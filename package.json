@@ -1,0 +1,27 @@
+{
+  "name": "vertex-enterprises",
+  "version": "1.0.0",
+  "description": "Vertex Enterprises — construction company management (projects, billing, expenses with slips, vendors, inventory, equipment, partners, reports, compliance).",
+  "scripts": {
+    "build": "node build.mjs web",
+    "build:claude": "node build.mjs",
+    "lint": "eslint src --ext .js,.jsx"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "esbuild": "^0.24.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

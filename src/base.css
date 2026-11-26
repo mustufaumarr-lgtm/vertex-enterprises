@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* VOICE: a site office at night — focused, confident, money first
+   IDEA: a contractor's control room: navy drafting board, blueprint-blue highlights
+   PICTURE: the live dashboard, its glowing KPI cards and ruled tables
+   COLOUR and TYPE: deep navy ground, blueprint blue accent, crisp white ink; Schibsted Grotesk
+   LAYOUT: dark sidebar + full-width ledger pages */
+:root,:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark;
+ --bg:#0b1226;--side:#080d1d;--panel:#121b35;--soft:#1b2546;--line:#28345e;
+ --ink:#eef1fb;--mute:#a3add0;--brick:#6366f1;--brick-2:#818cf8;
+ --ok:#34d399;--warn:#fbbf24;--bad:#fb7185;
+ --blue:#3b82f6;--violet:#8b5cf6;--teal:#2dd4bf;--coral:#fb7a5c;--sky:#38bdf8;--gold:#facc15;--pink:#f472b6;
+ --grad:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%);
+ --s1:#2dd4bf;--s2:#fb7a5c}
+*{min-width:0}
+html,body{background:var(--bg);color:var(--ink)}
+body{background:radial-gradient(1000px 520px at 90% -12%,rgba(139,92,246,.22),transparent 60%),radial-gradient(900px 520px at 20% -20%,rgba(59,130,246,.16),transparent 60%),radial-gradient(800px 500px at -10% 110%,rgba(45,212,191,.10),transparent 60%),var(--bg);background-attachment:fixed}
+.grad-text{background:linear-gradient(90deg,#5eead4,#60a5fa 45%,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-bg{background:var(--grad)}
+::selection{background:rgba(139,92,246,.45)}
+.panel-glow{box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 8px 24px -12px rgba(0,0,0,.6)}
+body{margin:0;font:16px/1.55 "Schibsted Grotesk",system-ui,sans-serif;overflow-x:clip}
+input[type=date]{min-height:44px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
