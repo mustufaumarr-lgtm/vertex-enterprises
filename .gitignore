@@ -8,3 +8,4 @@ seed*.json
 ops*.json
 w*.json
 d*.json
+!.env.example
