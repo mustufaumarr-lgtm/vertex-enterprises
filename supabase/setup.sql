@@ -47,6 +47,15 @@ drop policy if exists "see own membership" on public.members;
 create policy "see own membership" on public.members for select to authenticated
   using (lower(email) = lower(coalesce(auth.jwt() ->> 'email', '')));
 
+-- 4b) Let signed-in users reach these tables through the API
+--     (RLS above still decides what each person can actually see).
+grant usage on schema public to authenticated;
+grant select, insert, update, delete on public.docs to authenticated;
+grant select on public.members to authenticated;
+revoke all on public.docs from anon;
+revoke all on public.members from anon;
+grant execute on function public.is_member() to authenticated;
+
 -- 5) Live updates between partners' screens.
 do $$ begin
   alter publication supabase_realtime add table public.docs;

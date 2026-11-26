@@ -1,5 +1,5 @@
 {
-  "SUPABASE_URL": "",
-  "SUPABASE_ANON_KEY": "",
+  "SUPABASE_URL": "https://mckgjkqokzplquobesld.supabase.co",
+  "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ja2dqa3Fva3pwbHF1b2Jlc2xkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU3MTk0NjgsImV4cCI6MjExMTI5NTQ2OH0.XCYD0j8XaOPB7sOQy-BuYUYrPNsgPM5JEcLYjTbM6Uk",
   "_note": "Public client settings. The anon key is meant to be public (security comes from the row-level security rules in supabase/setup.sql). NEVER put the service_role key here. Vercel environment variables, if set, override these values."
 }
